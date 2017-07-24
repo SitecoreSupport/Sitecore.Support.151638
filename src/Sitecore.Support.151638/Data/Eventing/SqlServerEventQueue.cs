@@ -24,7 +24,7 @@
       var statement = new SqlStatement
       {
         Select = "SELECT TOP(1) {0}EventType{1}, {0}InstanceType{1}, {0}InstanceData{1}, {0}InstanceName{1}, {0}UserName{1}, {0}Stamp{1}, {0}Created{1}",
-        From = "FROM {0}EventQueue{1}",
+        From = "FROM {0}EventQueue{1} WITH (NOLOCK)",
         OrderBy = "ORDER BY {0}Stamp{1} DESC"
       };
 
@@ -34,7 +34,7 @@
 
     public override long GetQueuedEventCount()
     {
-      const string Query = "SELECT COUNT(*) FROM {0}EventQueue{1}";
+      const string Query = "SELECT COUNT(*) FROM {0}EventQueue{1} WITH (NOLOCK)";
 
       return DataApi.CreateObjectReader(Query, new object[0], r => GetLong(r, 0))
         .FirstOrDefault();
@@ -47,7 +47,7 @@
       var statement = new SqlStatement
       {
         Select = "SELECT {0}EventType{1}, {0}InstanceType{1}, {0}InstanceData{1}, {0}InstanceName{1}, {0}UserName{1}, {0}Stamp{1}, {0}Created{1}",
-        From = "FROM {0}EventQueue{1}",
+        From = "FROM {0}EventQueue{1} WITH (NOLOCK)",
         OrderBy = "ORDER BY {0}Stamp{1}"
       };
 
