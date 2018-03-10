@@ -36,7 +36,8 @@
     {
       const string Query = "SELECT COUNT(*) FROM {0}EventQueue{1} WITH (NOLOCK)";
 
-      return DataApi.CreateObjectReader(Query, new object[0], r => GetLong(r, 0))
+      return DataApi
+				.CreateObjectReader(Query, new object[0], r => GetLong(r, 0))
         .FirstOrDefault();
     }
 
